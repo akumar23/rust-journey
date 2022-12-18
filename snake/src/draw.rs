@@ -23,7 +23,7 @@ pub fn draw_block(color: Color, x:i32, y:i32, con: &Context, g: &mut G2d) {
     );
 }
 
-pub fn draw_rectange(
+pub fn draw_rectangle(
     color:Color,
     x: i32, 
     y: i32, 
