@@ -25,6 +25,8 @@ pub struct Game {
 
     game_over: bool,
     waiting_time: f64,
+
+    score: i32,
 }
 
 impl Game {
@@ -38,6 +40,7 @@ impl Game {
             width,
             height,
             game_over: false,
+            score: 0,
         }
     }
 
@@ -51,6 +54,10 @@ impl Game {
             Key::Down => Some(Direction::Down),
             Key::Left => Some(Direction::Left),
             Key::Right => Some(Direction::Right),
+            Key::W => Some(Direction::Up),
+            Key::S => Some(Direction::Down),
+            Key::D => Some(Direction::Right),
+            Key::A => Some(Direction::Left),
             _ => Some(self.snake.head_direction()),
         };
 
@@ -85,6 +92,7 @@ impl Game {
 
         if self.game_over {
             if self.waiting_time > RESTART_TIME {
+                println!("Your Score: {}", self.score);
                 self.restart();
             }
             return;
@@ -104,6 +112,7 @@ impl Game {
         if self.food_exists && self.food_x == head_x && self.food_y == head_y {
             self.food_exists = false;
             self.snake.restore_tail();
+            self.score += 1;
         }
     }
 
@@ -149,5 +158,6 @@ impl Game {
         self.food_x = 6;
         self.food_y = 4;
         self.game_over = false;
+        self.score = 0;
     }
 }
